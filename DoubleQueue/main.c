@@ -39,6 +39,8 @@ void push_front(struct double_qeue_head *head, int value)
     else{
         head->front = new_qeue;
     }
+
+
     head->size++;
 }
 
@@ -63,6 +65,9 @@ void print_front(struct double_qeue_head *head)
 
 void print_back(struct double_qeue_head *head)
 {
+    if(head->back->value){
+        printf("This is NULL\n");
+    }
     printf("The value at the front is %d\n", head->back->value);
 }
 
@@ -110,6 +115,30 @@ void pop_back(struct double_qeue_head *head)
     tmp = NULL;
 }
 
+void print_queue_front(struct double_qeue_head const *head) {
+    struct double_qeue *n = head->front;
+    for(int i = 0; i < head->size; i++){
+        printf("[%d] -> ", n->value);
+        if(!n->next){
+            break;
+        }
+        n = n->next;
+    }
+    printf("\n");
+}
+
+void print_queue_back(struct double_qeue_head const *head) {
+    struct double_qeue *n = head->back;
+    for(int i = 0; i < head->size; i++){
+        printf("[%d] -> ", n->value);
+        if(!n->prev){
+            break;
+        }
+        n = n->prev;
+    }
+    printf("\n");
+}
+
 int main(void)
 {
     struct double_qeue_head deqeue;
@@ -119,13 +148,26 @@ int main(void)
     push_front(&deqeue, 10);
     push_back(&deqeue, 11);
     push_back(&deqeue, 12);
+
+    print_queue_front(&deqeue);
+    // Something is wrong with the way I'm doing this
+    // need to redo the push back
+    print_queue_back(&deqeue);
+
+
+    /*
+    push_front(&deqeue, 7);
+    push_front(&deqeue, 10);
+    push_back(&deqeue, 11);
+    push_back(&deqeue, 12);
     print_front(&deqeue);
-    print_back(&deqeue);
-    pop_front(&deqeue);
-    print_front(&deqeue);
-    pop_back(&deqeue);
     print_back(&deqeue);
 
+    pop_front(&deqeue);
+    print_front(&deqeue);
+    //pop_back(&deqeue);
+    print_back(&deqeue);
+    */
 
     return 0;
 }
